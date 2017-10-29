@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  identifi-db:
+    image: postgres:9.6.5-alpine
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+  identifi-src:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    hostname: api
+    ports:
+      - "4944:4944" # identifi-daemon
+      - "8000:8000" # identifi-angular
+    volumes:
+      - ./:/usr/src/app
+    user: node
+    working_dir: /usr/src/app
+    command: node src/identifi-daemon/server.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
+    depends_on:
+      - identifi-db
+
+volumes:
+  db:
