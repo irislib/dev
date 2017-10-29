@@ -1,6 +1,8 @@
 version: '3'
 
 services:
+  ipfs:
+    image: jbenet/go-ipfs
   identifi-db:
     image: postgres:9.6.5-alpine
     read_only: true
@@ -22,9 +24,10 @@ services:
       - ./:/usr/src/app
     user: node
     working_dir: /usr/src/app
-    command: node src/identifi-daemon/server.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
+    command: node identifi-daemon/server.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
     depends_on:
       - identifi-db
+      - ipfs
 
 volumes:
   db:

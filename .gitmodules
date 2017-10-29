@@ -1,0 +1,15 @@
+[submodule "identifi"]
+	path = identifi
+	url = git@github.com:identifi/identifi.git
+[submodule "identifi-daemon"]
+	path = identifi-daemon
+	url = git@github.com:identifi/identifi-daemon.git
+[submodule "identifi-cli"]
+	path = identifi-cli
+	url = git@github.com:identifi/identifi-cli.git
+[submodule "identifi-angular"]
+	path = identifi-angular
+	url = git@github.com:identifi/identifi-angular.git
+[submodule "identifi-crawlers"]
+	path = identifi-crawlers
+	url = git@github.com:identifi/identifi-crawlers.git

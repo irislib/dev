@@ -6,13 +6,15 @@ WORKDIR /usr/src/app
 # Copy application files
 COPY . .
 
-RUN apk add --no-cache make g++ python2 libsodium-dev && npm install -g node-gyp
+RUN apk add --no-cache make g++ python2 openssl libsodium-dev && npm install -g node-gyp
 
-WORKDIR /usr/src/app/src/identifi-angular
+WORKDIR /usr/src/app/identifi-angular
 RUN yarn link
 
-WORKDIR /usr/src/app/src/identifi-daemon
+WORKDIR /usr/src/app/identifi-daemon
 RUN yarn link identifi-angular
 RUN yarn install
 
-CMD [ "node", "src/identifi-daemon/server.js" ]
+USER node
+RUN mkdir /home/node/.identifi
+CMD [ "node", "server.js" ]
