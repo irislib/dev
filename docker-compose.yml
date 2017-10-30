@@ -3,6 +3,10 @@ version: '3'
 services:
   ipfs:
     image: jbenet/go-ipfs
+    ports:
+      - "4001:4001"
+      - "5001:5001"
+      - "8080:8080"
   identifi-db:
     image: postgres:9.6.5-alpine
     read_only: true
@@ -20,11 +24,9 @@ services:
     ports:
       - "4944:4944" # identifi-daemon
       - "8000:8000" # identifi-angular
-    volumes:
-      - ./:/usr/src/app
     user: node
     working_dir: /usr/src/app
-    command: node identifi-daemon/server.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
+    command: ["./wait-for", "ipfs:4001", "--", "node", "identifi-daemon/server.js"]
     depends_on:
       - identifi-db
       - ipfs
