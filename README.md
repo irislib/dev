@@ -1,7 +1,7 @@
 # Check prerequisites
-git -v
-docker -v
-docker-compose
+    git -v
+    docker -v
+    docker-compose
 
 # Initialize
     git submodule init && git submodule update
