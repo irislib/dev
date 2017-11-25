@@ -17,4 +17,5 @@ RUN yarn install
 
 USER node
 RUN mkdir /home/node/.identifi
+COPY identifi.config.json /home/node/.identifi/config.json
 CMD [ "node", "server.js" ]
