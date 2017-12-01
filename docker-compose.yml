@@ -7,16 +7,16 @@ services:
       - "4001:4001"
       - "5001:5001"
       - "8080:8080"
-  identifi-db:
+    command: ["daemon", "--migrate=true", "--enable-pubsub-experiment"]
+  postgres:
     image: postgres:9.6.5-alpine
-    read_only: true
     tmpfs:
       - /tmp
       - /var/run/postgresql
     volumes:
       - db:/var/lib/postgresql/data
       - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
-  identifi-src:
+  identifi:
     build:
       context: ./
       dockerfile: Dockerfile
@@ -28,7 +28,7 @@ services:
     working_dir: /usr/src/app/identifi-daemon
     command: ["../wait-for", "ipfs:5001", "--", "node", "server.js"]
     depends_on:
-      - identifi-db
+      - postgres
       - ipfs
 
 volumes:
