@@ -8,6 +8,10 @@ COPY . .
 
 RUN apk add --no-cache make g++ python2 openssl libsodium-dev && npm install -g node-gyp
 
+WORKDIR /usr/src/app/identifi-cli
+RUN yarn link
+RUN yarn install
+
 WORKDIR /usr/src/app/identifi-angular
 RUN yarn link
 

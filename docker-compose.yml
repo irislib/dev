@@ -25,8 +25,11 @@ services:
       - "4944:4944" # identifi-daemon
       - "8000:8000" # identifi-angular
     user: node
-    working_dir: /usr/src/app/identifi-daemon
-    command: ["../wait-for", "ipfs:5001", "--", "node", "server.js"]
+    volumes:
+      - ./identifi-daemon:/identifi-daemon
+      - ./identifi-angular:/identifi-angular
+    working_dir: /identifi-daemon
+    command: ["/usr/src/app/wait-for", "ipfs:5001", "--", "npm", "start"]
     depends_on:
       - postgres
       - ipfs
