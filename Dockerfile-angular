@@ -4,8 +4,13 @@ FROM node:6.12.0-alpine
 WORKDIR /usr/src/app
 
 # Copy application files
-COPY identifi-angular .
+COPY identifi-angular identifi-angular
 COPY wait-for .
+
+RUN apk add --no-cache make g++ python libsodium-dev && npm install -g node-gyp
+
+WORKDIR /usr/src/app/identifi-angular
+RUN yarn install --force
 
 RUN yarn global add gulp-cli
 
