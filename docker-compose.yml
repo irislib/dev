@@ -16,18 +16,26 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
       - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
-  identifi:
+  identifi-angular:
+    build:
+      context: ./
+      dockerfile: Dockerfile-angular
+    ports:
+      - "3000:3000" # identifi-angular
+    user: node
+    volumes:
+      - ./identifi-angular:/identifi-angular
+    working_dir: /identifi-angular
+    command: ["/usr/src/app/wait-for", "ipfs:5001", "--", "gulp", "serve"]
+  identifi-daemon:
     build:
       context: ./
       dockerfile: Dockerfile
-    hostname: api
     ports:
       - "4944:4944" # identifi-daemon
-      - "8000:8000" # identifi-angular
     user: node
     volumes:
       - ./identifi-daemon:/identifi-daemon
-      - ./identifi-angular:/identifi-angular
     working_dir: /identifi-daemon
     command: ["/usr/src/app/wait-for", "ipfs:5001", "--", "npm", "start"]
     depends_on:
