@@ -14,4 +14,5 @@ RUN yarn install --force
 
 RUN mkdir /home/node/.identifi
 COPY identifi.config.json /home/node/.identifi/config.json
+RUN chown -R node:node /home/node/.identifi
 CMD [ "npm", "start" ]
