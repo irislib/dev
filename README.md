@@ -10,6 +10,7 @@
 Identifi-angular will be available on http://localhost:3000 and identifi-daemon API on http://localhost:4944 (use with identifi-cli). Identifi-angular livereloads with browsersync and identifi-daemon is run using npm-watch to restart on code changes.
 
 Use identifi-cli to interact with identifi-daemon:
+
     docker container exec -i -t identifidocker_identifi-daemon_1 sh
     cd /identifi-cli
     ./identifi
