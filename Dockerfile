@@ -5,9 +5,13 @@ WORKDIR /usr/src/app
 
 # Copy application files
 COPY identifi-daemon identifi-daemon
+COPY identifi-cli identifi-cli
 COPY wait-for wait-for
 
 RUN apk add --no-cache make g++ python2 openssl libsodium-dev
+
+WORKDIR /usr/src/app/identifi-cli
+RUN yarn install --force
 
 WORKDIR /usr/src/app/identifi-daemon
 RUN yarn install --force

@@ -44,12 +44,14 @@ services:
     user: node
     volumes:
       - ./identifi-daemon:/identifi-daemon
+      - ./identifi-cli:/identifi-cli
     working_dir: /identifi-daemon
     command:
       - /bin/sh
       - -c
       - |
           cp -r /usr/src/app/identifi-daemon/node_modules /identifi-daemon
+          cp -r /usr/src/app/identifi-cli/node_modules /identifi-cli
           /usr/src/app/wait-for ipfs:5001 -- npm start
     depends_on:
       - postgres
