@@ -7,8 +7,7 @@ WORKDIR /usr/src/app
 COPY identifi-angular identifi-angular
 COPY wait-for wait-for
 
-# git needed by bower
-RUN apk add --no-cache git
+RUN apk add --no-cache make g++ git python
 
 WORKDIR /usr/src/app/identifi-angular
 RUN yarn install --force
