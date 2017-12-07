@@ -15,5 +15,9 @@ Use identifi-cli to interact with identifi-daemon:
     cd /identifi-cli
     ./identifi
 
+Build identifi-angular:
+
+    docker container exec -i -t identifidocker_identifi-angular_1 gulp build
+
 # Thanks
 https://www.airpair.com/docker/posts/efficiant-development-workfow-using-git-submodules-and-docker-compose
